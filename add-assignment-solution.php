@@ -1,11 +1,12 @@
 <?php
+include('Config\db_connect.php');
+
 
 $student_id=$_POST['student_id'];
-$class_name=$_POST['class_name'];
 $assignment_id=$_POST['assignment_id'];
 $solution=$_POST['solution'];
 
-$sql = $conn->prepare("select assignment_id from assignments where assignment_id=$assignment_id");
+$sql = $conn->prepare("select assignment_id from assignments where assignment_id=?");
 $sql->bind_param("s",$assignment_id);
 $sql->execute();
 $sql->store_result();
