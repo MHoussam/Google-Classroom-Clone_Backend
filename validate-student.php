@@ -15,7 +15,7 @@ $username=$_POST['username'];
 
 $password=$_POST['password'];
 
-$sql = $conn->prepare("select user_id,first_name,last_name,occupation,password from students where username=?");
+$sql = $conn->prepare("select user_id,first_name,last_name,password from students where username=?");
 $sql->bind_param("s",$username);
 $sql->execute();
 $sql->store_result();
@@ -26,10 +26,10 @@ if($sql->num_rows()==0){
   echo json_encode($data);
   exit();
 } else{
-  $sql->bind_result($id,$first_name,$last_name,$occupation,$hashed_password);
+  $sql->bind_result($id,$first_name,$last_name,$hashed_password);
   $sql->fetch();
   if(password_verify($password,$hashed_password)){
-    $data = array("status"=>"1","id"=>$id,"first_name"=>$first_name,"last_name"=>$last_name,"occupation"=>$occupation);
+    $data = array("status"=>"1","id"=>$id,"first_name"=>$first_name,"last_name"=>$last_name);
     echo json_encode($data);
     exit();
   } else{
