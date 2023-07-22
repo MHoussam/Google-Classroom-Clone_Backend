@@ -72,14 +72,10 @@ if(empty($_POST['password'])){
     $password=$_POST['password'];
 }
 
-if(isset($_POST['picture_path'])){
-    $picture_path=$_POST['picture_path'];
-}
-
 if(!empty($email) && !empty($username) && !empty($first_name) && !empty($last_name) && !empty($password)){
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-    $sql = $conn->prepare("insert into students (first_name,last_name,username,email,password,picture_path) values(?,?,?,?,?,?)");
-    $sql->bind_param("sssssss", $first_name,$last_name,$username,$email,$hashed_password,$picture_path);
+    $sql = $conn->prepare("insert into students (first_name,last_name,username,email,password) values(?,?,?,?,?)");
+    $sql->bind_param("sssssss", $first_name,$last_name,$username,$email,$hashed_password);
     $sql->execute();
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     if($sql->get_result()){
