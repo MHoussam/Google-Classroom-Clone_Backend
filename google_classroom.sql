@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2023 at 11:44 AM
+-- Generation Time: Jul 22, 2023 at 01:26 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -34,6 +34,13 @@ CREATE TABLE `assignments` (
   `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `assignments`
+--
+
+INSERT INTO `assignments` (`assignment_id`, `class_id`, `title`, `description`) VALUES
+(1, 1, 'google clone', 'make a google clone');
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +54,13 @@ CREATE TABLE `assignments_solution` (
   `solution` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `assignments_solution`
+--
+
+INSERT INTO `assignments_solution` (`assignments_solution_id`, `student_id`, `assignment_id`, `solution`) VALUES
+(1, 1, 1, 'kasdassadsad');
+
 -- --------------------------------------------------------
 
 --
@@ -59,6 +73,14 @@ CREATE TABLE `classes` (
   `class_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `classes`
+--
+
+INSERT INTO `classes` (`class_id`, `teacher_id`, `class_name`) VALUES
+(1, 1, 'SEF'),
+(2, 1, 'SEF google');
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +92,14 @@ CREATE TABLE `class_students` (
   `student_id` int(11) NOT NULL,
   `class_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `class_students`
+--
+
+INSERT INTO `class_students` (`class_student_id`, `student_id`, `class_id`) VALUES
+(1, 1, 1),
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -109,6 +139,13 @@ CREATE TABLE `teachers` (
   `password` varchar(255) NOT NULL,
   `picture_path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `teachers`
+--
+
+INSERT INTO `teachers` (`teacher_id`, `first_name`, `last_name`, `username`, `email`, `password`, `picture_path`) VALUES
+(1, 'charbel', 'charbel', 'charbel', 'charbel@charbel.com', 'charbel', 'c:/ads/asasd');
 
 --
 -- Indexes for dumped tables
@@ -164,25 +201,25 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `assignments_solution`
 --
 ALTER TABLE `assignments_solution`
-  MODIFY `assignments_solution_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `assignments_solution_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `class_students`
 --
 ALTER TABLE `class_students`
-  MODIFY `class_student_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `class_student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -194,7 +231,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
