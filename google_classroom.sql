@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2023 at 09:18 PM
+-- Generation Time: Jul 22, 2023 at 11:44 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `assignments` (
   `assignment_id` int(11) NOT NULL,
-  `teacher_id` int(11) NOT NULL,
   `class_id` int(11) NOT NULL,
-  `task` varchar(255) NOT NULL
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -56,8 +56,19 @@ CREATE TABLE `assignments_solution` (
 CREATE TABLE `classes` (
   `class_id` int(11) NOT NULL,
   `teacher_id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
   `class_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `class_students`
+--
+
+CREATE TABLE `class_students` (
+  `class_student_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -68,8 +79,20 @@ CREATE TABLE `classes` (
 
 CREATE TABLE `students` (
   `student_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `picture_path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `username`, `email`, `password`, `picture_path`) VALUES
+(1, 'marc', 'marc', 'marc', 'marc@test.com', '$2y$10$lVAphk7ftjejtXu96lXgi.lvZCOSo8jnO7Uoi5A7Qiqa.gGSOIl4q', 'C://hj/bh');
 
 -- --------------------------------------------------------
 
@@ -79,32 +102,13 @@ CREATE TABLE `students` (
 
 CREATE TABLE `teachers` (
   `teacher_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `occupation` varchar(255) NOT NULL,
   `picture_path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `email`, `password`, `occupation`, `picture_path`) VALUES
-(1, 'marc', 'marc', 'marc', 'marc@test.com', '$2y$10$bOrs2jDPTSHMfRZ8ULzLYeWoG/yHKaYUj0KlY2QHbyMBtAbsS4wUa', 'DevsecOps', 'C://hj/bh');
 
 --
 -- Indexes for dumped tables
@@ -115,7 +119,6 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `email`, 
 --
 ALTER TABLE `assignments`
   ADD PRIMARY KEY (`assignment_id`),
-  ADD KEY `teacher_id` (`teacher_id`,`class_id`),
   ADD KEY `assignments class fk` (`class_id`);
 
 --
@@ -131,28 +134,27 @@ ALTER TABLE `assignments_solution`
 --
 ALTER TABLE `classes`
   ADD PRIMARY KEY (`class_id`),
-  ADD KEY `teacher_id` (`teacher_id`,`student_id`),
-  ADD KEY `classes student fk` (`student_id`);
+  ADD KEY `teacher_id` (`teacher_id`);
+
+--
+-- Indexes for table `class_students`
+--
+ALTER TABLE `class_students`
+  ADD PRIMARY KEY (`class_student_id`),
+  ADD KEY `student_id` (`student_id`,`class_id`),
+  ADD KEY `class_students class fk` (`class_id`);
 
 --
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`student_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`student_id`);
 
 --
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
-  ADD PRIMARY KEY (`teacher_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`teacher_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -177,22 +179,22 @@ ALTER TABLE `classes`
   MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `class_students`
+--
+ALTER TABLE `class_students`
+  MODIFY `class_student_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
   MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -202,8 +204,7 @@ ALTER TABLE `users`
 -- Constraints for table `assignments`
 --
 ALTER TABLE `assignments`
-  ADD CONSTRAINT `assignments class fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`),
-  ADD CONSTRAINT `assignments teacher fk` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
+  ADD CONSTRAINT `assignments class fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`);
 
 --
 -- Constraints for table `assignments_solution`
@@ -216,20 +217,14 @@ ALTER TABLE `assignments_solution`
 -- Constraints for table `classes`
 --
 ALTER TABLE `classes`
-  ADD CONSTRAINT `classes student fk` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`),
   ADD CONSTRAINT `classes teacher fk` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
 
 --
--- Constraints for table `students`
+-- Constraints for table `class_students`
 --
-ALTER TABLE `students`
-  ADD CONSTRAINT `student fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
-
---
--- Constraints for table `teachers`
---
-ALTER TABLE `teachers`
-  ADD CONSTRAINT `teachers_userid_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+ALTER TABLE `class_students`
+  ADD CONSTRAINT `class_students class fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`),
+  ADD CONSTRAINT `class_students student fk` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
