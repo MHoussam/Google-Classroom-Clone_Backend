@@ -15,7 +15,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 
 
-$check_email = $conn->prepare('select student_id from students where email=?');
+$check_email = $conn->prepare('select teacher_id from teachers where email=?');
 $check_email->bind_param('s', $_POST['email']);
 $check_email->execute();
 $check_email->store_result();
@@ -26,7 +26,7 @@ if ($check_email->num_rows() == 0) {
     echo json_encode($response);
     exit();
 }
-$check_username = $conn->prepare('select student_id from students where username=?');
+$check_username = $conn->prepare('select teacher_id from teachers where username=?');
 $check_username->bind_param('s', $_POST['username']);
 $check_username->execute();
 $check_username->store_result();
@@ -73,7 +73,7 @@ if(empty($_POST['password'])){
 
 if(!empty($email) && !empty($username) && !empty($first_name) && !empty($last_name) && !empty($password)){
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-    $sql = $conn->prepare("insert into students (first_name,last_name,username,email,password,picture_path) values(?,?,?,?,?,?)");
+    $sql = $conn->prepare("insert into teachers (first_name,last_name,username,email,password,picture_path) values(?,?,?,?,?,?)");
     $sql->bind_param("sssss", $first_name,$last_name,$username,$email,$hashed_password,$picture_path);
     $sql->execute();
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
