@@ -2,12 +2,11 @@
 
 include('Config\db_connect.php');
 
-$id=$first_name=$last_name=$username=$password="";
+$id=$first_name=$last_name=$username=$password=$occupation="";
 header("Content-type: application/json; charset=utf-8");
 header('Access-Control-Allow-Origin: http://localhost:5500');
 header('Access-Control-Allow-Methods: POST');
 header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Credentials: true");
 
 
 // $_POST = json_decode(file_get_contents('php://input'), true);
@@ -16,7 +15,7 @@ $username=$_POST['username'];
 
 $password=$_POST['password'];
 
-$sql = $conn->prepare("select user_id,first_name,last_name,password from users where username=?");
+$sql = $conn->prepare("select user_id,first_name,last_name,occupation,password from users where username=?");
 $sql->bind_param("s",$username);
 $sql->execute();
 $sql->store_result();
@@ -27,10 +26,10 @@ if($sql->num_rows()==0){
   echo json_encode($data);
   exit();
 } else{
-  $sql->bind_result($id,$first_name,$last_name,$hashed_password);
+  $sql->bind_result($id,$first_name,$last_name,$occupation,$hashed_password);
   $sql->fetch();
   if(password_verify($password,$hashed_password)){
-    $data = array("status"=>"1","id"=>$id,"first_name"=>$first_name,"last_name"=>$last_name);
+    $data = array("status"=>"1","id"=>$id,"first_name"=>$first_name,"last_name"=>$last_name,"occupation"=>$occupation);
     echo json_encode($data);
     exit();
   } else{
