@@ -2,9 +2,9 @@
 include('Config\db_connect.php');
 
 $class_id=$_POST['class_id'];
+$teacher_id=$_POST['teacher_id'];
 $title=$_POST['title'];
 $description=$_POST['description'];
-$teacher_id=$_POST['teacher_id'];
 
 $sql = $conn->prepare("select class_id from classes where teacher_id=?");
 $sql->bind_param("s",$teacher_id);
@@ -12,7 +12,7 @@ $sql->execute();
 $result=$sql->get_result();
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-if(!$result){
+if($result->num_rows==0){
     
   $response=array("status"=>"0","error"=>"Teacher does not have any classes");
   echo json_encode($response);
