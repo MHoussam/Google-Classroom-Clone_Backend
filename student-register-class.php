@@ -17,7 +17,7 @@ if($sql->num_rows()==0){
 } else{
     $sql->bind_result($class_id);
     $sql->fetch();
-    $sql = $conn->prepare("INSERT INTO class_students (student_id,class_id) VALUES (student_id,class_id)");
+    $sql = $conn->prepare("INSERT INTO class_students (student_id,class_id) VALUES (?,?)");
     $sql->bind_param("ss", $student_id,$class_id);
     $sql->execute();
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
