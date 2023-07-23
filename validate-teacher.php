@@ -2,7 +2,7 @@
 
 include('Config\db_connect.php');
 
-$id=$first_name=$last_name=$email=$password=$occupation="";
+$id=$first_name=$last_name=$email=$password="";
 header("Content-type: application/json; charset=utf-8");
 header('Access-Control-Allow-Origin: http://localhost:5500');
 header('Access-Control-Allow-Methods: POST');
