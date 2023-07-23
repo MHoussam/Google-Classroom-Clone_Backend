@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2023 at 06:14 PM
+-- Generation Time: Jul 23, 2023 at 07:02 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -113,29 +113,6 @@ CREATE TABLE `materials` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_reset_temps`
---
-
-CREATE TABLE `password_reset_temps` (
-  `reset_id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `reset_token` varchar(255) NOT NULL,
-  `exp_date` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `password_reset_temps`
---
-
-INSERT INTO `password_reset_temps` (`reset_id`, `email`, `reset_token`, `exp_date`) VALUES
-(10, 'chris@test.com', '37d999ee7e230b23fc4722d535e97da2', '05:48:40'),
-(11, 'chris@test.com', '4e7c4a75a138ea6f2cb84f19af69080e', '05:50:24'),
-(12, 'chris@test.com', '4ebc8991cebf28d6377297a693b6710e', '05:50:54'),
-(13, 'chris@test.com', 'c4e2274e9ec96552a783b62ba953c661', '05:52:12');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `students`
 --
 
@@ -160,6 +137,19 @@ INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `email`, `passw
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `student_reset_temps`
+--
+
+CREATE TABLE `student_reset_temps` (
+  `reset_id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `reset_token` varchar(255) NOT NULL,
+  `creation_date` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `teachers`
 --
 
@@ -178,7 +168,28 @@ CREATE TABLE `teachers` (
 
 INSERT INTO `teachers` (`teacher_id`, `first_name`, `last_name`, `email`, `password`, `picture_path`) VALUES
 (1, 'charbel', 'charbel', 'charbel@charbel.com', 'charbel', 'c:/ads/asasd'),
-(2, 'chris', 'chris', 'chris@test.com', '$2y$10$xxpqHdTn4vgpy6X9WMPz7.ExaKch3zhItr4a0VRr/Q7NQvQcJi2/u', '');
+(2, 'chris', 'chris', 'chris@test.com', '$2y$10$p.fxuu4xBorBY6uj1gBAxeDve3jDY3hUemFIKB4FilxNjpFSYPVaa', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teacher_reset_temps`
+--
+
+CREATE TABLE `teacher_reset_temps` (
+  `reset_id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `reset_token` varchar(255) NOT NULL,
+  `creation_date` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `teacher_reset_temps`
+--
+
+INSERT INTO `teacher_reset_temps` (`reset_id`, `email`, `reset_token`, `creation_date`) VALUES
+(6, 'chris@test.com', '474b2749312076c92b1dfee656623792', '06:43:49'),
+(7, 'chris@test.com', 'b518b2d55a58cbfdfb59d0e3db57d32f', '06:51:07');
 
 --
 -- Indexes for dumped tables
@@ -222,22 +233,28 @@ ALTER TABLE `materials`
   ADD UNIQUE KEY `class_id` (`class_id`);
 
 --
--- Indexes for table `password_reset_temps`
---
-ALTER TABLE `password_reset_temps`
-  ADD PRIMARY KEY (`reset_id`);
-
---
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`student_id`);
 
 --
+-- Indexes for table `student_reset_temps`
+--
+ALTER TABLE `student_reset_temps`
+  ADD PRIMARY KEY (`reset_id`);
+
+--
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
   ADD PRIMARY KEY (`teacher_id`);
+
+--
+-- Indexes for table `teacher_reset_temps`
+--
+ALTER TABLE `teacher_reset_temps`
+  ADD PRIMARY KEY (`reset_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -274,22 +291,28 @@ ALTER TABLE `materials`
   MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `password_reset_temps`
---
-ALTER TABLE `password_reset_temps`
-  MODIFY `reset_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
   MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `student_reset_temps`
+--
+ALTER TABLE `student_reset_temps`
+  MODIFY `reset_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
   MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `teacher_reset_temps`
+--
+ALTER TABLE `teacher_reset_temps`
+  MODIFY `reset_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
