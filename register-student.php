@@ -4,11 +4,11 @@ include('Config\db_connect.php');
 $email=$last_name=$first_name=$password=$picture_path="";
 $response['status']="";
 $errors=array('email'=>'','last_name'=>'','first_name'=>'','password'=>'','result'=>'');
-// $_POST = json_decode(file_get_contents('php://input'), true);
+$_POST = json_decode(file_get_contents('php://input'), true);
 $errors['result']='';
 
 header("Content-type: application/json; charset=utf-8");
-header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
+header('Access-Control-Allow-Origin: http://localhost:5500');
 header('Access-Control-Allow-Methods: POST');
 header("Access-Control-Allow-Headers: Content-Type");
 
@@ -69,12 +69,12 @@ if(!empty($email) && !empty($first_name) && !empty($last_name) && !empty($passwo
         echo json_encode($response);
         exit();
     }else{
-        $response['status']="1";
+        $response=array('status'=>'1','result'=>'Success');
         echo json_encode($response);
         exit();
     }
 }else{
-    $response=array('status'=>'0','result'=>'Please fill empty fields');
+    $response=array('status'=>'0','error'=>'Please fill empty fields');
     echo json_encode($response);
     echo json_encode($errors);
     exit();
