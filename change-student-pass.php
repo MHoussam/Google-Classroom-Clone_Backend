@@ -21,7 +21,7 @@ $sql->execute();
 $sql->store_result();
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-if($sql->num_rows()==0){
+if($sql->num_rows==0){
   $data=array("status"=>"0","error"=>"Wrong credentials");
   echo json_encode($data);
   exit();
