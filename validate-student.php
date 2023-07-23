@@ -15,7 +15,7 @@ $email=$_POST['email'];
 
 $password=$_POST['password'];
 
-$sql = $conn->prepare("select user_id,first_name,last_name,password from students where email=?");
+$sql = $conn->prepare("select student_id,first_name,last_name,password from students where email=?");
 $sql->bind_param("s",$email);
 $sql->execute();
 $sql->store_result();

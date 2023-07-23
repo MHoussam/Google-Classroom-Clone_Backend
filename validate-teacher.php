@@ -15,11 +15,10 @@ $email=$_POST['email'];
 
 $password=$_POST['password'];
 
-$sql = $conn->prepare("select user_id,first_name,last_name,password from teachers where email=?");
+$sql = $conn->prepare("select teacher_id,first_name,last_name,password from teachers where email=?");
 $sql->bind_param("s",$email);
 $sql->execute();
 $sql->store_result();
-
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 if($sql->num_rows()==0){
   $response=array("status"=>"0","error"=>"Wrong credentials");
