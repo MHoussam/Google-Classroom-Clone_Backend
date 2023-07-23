@@ -33,8 +33,8 @@ if(empty($_POST['email'])){
     if(filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)){
         $email=$_POST['email'];
     } else{
-        $response['status']="0";
-        $response['error']='Please enter a valid email';
+
+        $response=array('status'=>'0','error'=>'Please enter a valid email');
         echo json_encode($response);
         exit();
     }
