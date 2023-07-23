@@ -13,12 +13,12 @@ header("Access-Control-Allow-Headers: Content-Type");
 $teacher_id=$_GET['teacher_id'];
 $class_name=$class_id="";
 
-$sql = $conn->prepare("select class_id,class_name from classes where teacher_id=?");
+$sql = $conn->prepare("select class_name,section,subject,room,meet_link from classes where teacher_id=?");
 $sql->bind_param("s",$teacher_id);
 $sql->execute();
 $result=$sql->get_result();
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-if(!$result){
+if($result->num_rows()=="0"){
   $response=array("status"=>"0","error"=>"No classes");
   echo json_encode($data);
   exit();
