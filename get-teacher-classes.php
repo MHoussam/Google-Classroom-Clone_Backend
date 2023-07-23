@@ -10,9 +10,8 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 
 $teacher_id=$_GET['teacher_id'];
-$class_name=$class_id="";
 
-$sql = $conn->prepare("select class_name,section,subject,room,meet_link from classes where teacher_id=?");
+$sql = $conn->prepare("select class_id,class_name,section,subject,room,meet_link from classes where teacher_id=?");
 $sql->bind_param("s",$teacher_id);
 $sql->execute();
 $result=$sql->get_result();
