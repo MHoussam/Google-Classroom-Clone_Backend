@@ -1,6 +1,9 @@
 <?php
 include('Config\db_connect.php');
 
+// $_POST = json_decode(file_get_contents('php://input'), true);
+
+
 $class_id=$_POST['class_id'];
 $teacher_id=$_POST['teacher_id'];
 $title=$_POST['title'];
