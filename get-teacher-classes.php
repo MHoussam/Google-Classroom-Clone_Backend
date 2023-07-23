@@ -16,7 +16,7 @@ $sql->bind_param("s",$teacher_id);
 $sql->execute();
 $result=$sql->get_result();
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-if($result->num_rows()=="0"){
+if($result->num_rows=="0"){
   $response=array("status"=>"0","error"=>"No classes");
   echo json_encode($data);
   exit();
