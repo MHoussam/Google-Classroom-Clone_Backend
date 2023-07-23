@@ -24,7 +24,7 @@ if($sql->num_rows()==0){
     $sql->bind_param("ss", $student_id,$class_id);
     $sql->execute();
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    if($sql->get_result()){
+    if($sql->affected_rows=="0"){
         $response=array('status'=>'0','error'=>'could not add class');
         echo json_encode($response);
         exit();

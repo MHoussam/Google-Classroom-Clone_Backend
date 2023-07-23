@@ -33,7 +33,7 @@ if($sql->num_rows()==0){
     $sql = $conn->prepare("UPDATE teachers SET password=? WHERE email=?");
     $sql->bind_param("ss",$new_hashed_pass,$email);
     $sql->execute();
-    if($sql->get_result()){
+    if($sql->affected_rows=="0"){
         $response=array('status'=>"0","result"=>"Could not change password");
         echo json_encode($response);
         exit();

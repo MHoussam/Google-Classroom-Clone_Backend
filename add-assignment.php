@@ -33,7 +33,7 @@ if($result->num_rows==0){
             $sql->bind_param("ssssss", $class_id,$title,$description,$path,$due_date,$due_time);
             $sql->execute();
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-            if($sql->get_result()){
+            if($sql->affected_rows=="0"){
                 $response=array('status'=>'0','error'=>'Could not add assignment');
                 echo json_encode($response);
                 exit();

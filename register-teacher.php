@@ -65,7 +65,7 @@ if(!empty($email) && !empty($username) && !empty($first_name) && !empty($last_na
     $sql->bind_param("sssss", $first_name,$last_name,$email,$hashed_password,$picture_path);
     $sql->execute();
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    if($sql->get_result()){
+    if($sql->affected_rows){
         $response=array('status'=>'0','error'=>'Could not register');
         echo json_encode($response);
         exit();
