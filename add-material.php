@@ -28,7 +28,7 @@ if($result->num_rows==0){
     while( $row=$result->fetch_array(MYSQLI_ASSOC)){
         if($row['class_id']==$class_id){
             $sql = $conn->prepare("INSERT INTO materials (class_id,title,description,path,date_of_upload) VALUES (?,?,?,?,?)");
-            $sql->bind_param("sssss", $class_id,$title,$description,$path,date("Y/m/d"));
+            $sql->bind_param("sssss", $class_id,$title,$description,$path,date("Y-m-d"));
             $sql->execute();
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             if($sql->get_result()){
