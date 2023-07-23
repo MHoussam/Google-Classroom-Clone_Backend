@@ -22,19 +22,19 @@ $sql->store_result();
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 if($sql->num_rows()==0){
-  $data=array("status"=>"0","error"=>"Wrong credentials");
-  echo json_encode($data);
+  $response=array("status"=>"0","error"=>"Wrong credentials");
+  echo json_encode($response);
   exit();
 } else{
   $sql->bind_result($id,$first_name,$last_name,$hashed_password);
   $sql->fetch();
   if(password_verify($password,$hashed_password)){
-    $data = array("status"=>"1","id"=>$id,"first_name"=>$first_name,"last_name"=>$last_name);
-    echo json_encode($data);
+    $response = array("status"=>"1","id"=>$id,"first_name"=>$first_name,"last_name"=>$last_name);
+    echo json_encode($response);
     exit();
   } else{
-    $data=array("status"=>"0","error"=>"Wrong credentials");
-    echo json_encode($data);
+    $response=array("status"=>"0","error"=>"Wrong credentials");
+    echo json_encode($response);
     exit();
   }
  
