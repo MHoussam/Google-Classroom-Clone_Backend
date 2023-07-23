@@ -8,7 +8,6 @@ header('Access-Control-Allow-Methods: POST');
 header("Access-Control-Allow-Headers: Content-Type");
 
 
-// $_GET = json_decode(file_get_contents('php://input'), true);
 
 $teacher_id=$_GET['teacher_id'];
 $class_name=$class_id="";
