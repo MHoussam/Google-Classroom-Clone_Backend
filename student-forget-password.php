@@ -9,7 +9,7 @@
     $sql = $conn->prepare("select student_id from students where email=?");
     $sql->bind_param("s",$email);
     $sql->execute();
-    $result=$sql->store_result();
+    $result=$sql->get_result();
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     if($result->num_rows=="0"){
         $response=array("status"=>"0","error"=>"Email does not exist");
