@@ -2,7 +2,7 @@
 
 include('Config\db_connect.php');
 
-$username=$password=$new_password="";
+$email=$password=$new_password="";
 header("Content-type: application/json; charset=utf-8");
 header('Access-Control-Allow-Origin: http://localhost:5500');
 header('Access-Control-Allow-Methods: POST');
@@ -11,12 +11,12 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 // $_POST = json_decode(file_get_contents('php://input'), true);
 
-$username=$_POST['username'];
+$email=$_POST['email'];
 
 $password=$_POST['password'];
 $new_password=$_POST['new_password'];
-$sql = $conn->prepare("select password from students where username=?");
-$sql->bind_param("s",$username);
+$sql = $conn->prepare("select password from students where email=?");
+$sql->bind_param("s",$email);
 $sql->execute();
 $sql->store_result();
 
@@ -30,8 +30,8 @@ if($sql->num_rows()==0){
   $sql->fetch();
   if(password_verify($password,$hashed_password)){
     $new_hashed_pass = password_hash($new_password, PASSWORD_BCRYPT);
-    $sql = $conn->prepare("UPDATE students SET password=? WHERE username=?");
-    $sql->bind_param("ss",$new_hashed_pass,$username);
+    $sql = $conn->prepare("UPDATE students SET password=? WHERE email=?");
+    $sql->bind_param("ss",$new_hashed_pass,$email);
     $sql->execute();
     if($sql->get_result()){
         $response=array('status'=>"0","result"=>"Could not change password");

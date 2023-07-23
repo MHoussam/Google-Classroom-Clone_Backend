@@ -2,7 +2,7 @@
 
 include('Config\db_connect.php');
 
-$id=$first_name=$last_name=$username=$password=$occupation="";
+$id=$first_name=$last_name=$email=$password=$occupation="";
 header("Content-type: application/json; charset=utf-8");
 header('Access-Control-Allow-Origin: http://localhost:5500');
 header('Access-Control-Allow-Methods: POST');
@@ -11,12 +11,12 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 // $_POST = json_decode(file_get_contents('php://input'), true);
 
-$username=$_POST['username'];
+$email=$_POST['email'];
 
 $password=$_POST['password'];
 
-$sql = $conn->prepare("select user_id,first_name,last_name,password from students where username=?");
-$sql->bind_param("s",$username);
+$sql = $conn->prepare("select user_id,first_name,last_name,password from students where email=?");
+$sql->bind_param("s",$email);
 $sql->execute();
 $sql->store_result();
 

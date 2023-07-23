@@ -1,12 +1,11 @@
 <?php
 
 include('Config\db_connect.php');
-$email=$last_name=$first_name=$password=$picture_path=$username="";
+$email=$last_name=$first_name=$password=$picture_path="";
 $response['status']="";
 $errors=array('email'=>'','last_name'=>'','first_name'=>'','password'=>'','result'=>'');
 // $_POST = json_decode(file_get_contents('php://input'), true);
 $errors['result']='';
-
 
 header("Content-type: application/json; charset=utf-8");
 header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
@@ -23,18 +22,6 @@ if ($check_email->num_rows() == 0) {
     $email=$_POST['email'];
 } else {
     $response=array('status'=>'0','error'=>'Email already taken');
-    echo json_encode($response);
-    exit();
-}
-$check_username = $conn->prepare('select student_id from students where username=?');
-$check_username->bind_param('s', $_POST['username']);
-$check_username->execute();
-$check_username->store_result();
-if ($check_username->num_rows() == 0) {
-    $username=$_POST['username'];
-} else {
-    $response=array('status'=>'0','error'=>'Username already taken');
-
     echo json_encode($response);
     exit();
 }
@@ -71,10 +58,10 @@ if(empty($_POST['password'])){
     $password=$_POST['password'];
 }
 
-if(!empty($email) && !empty($username) && !empty($first_name) && !empty($last_name) && !empty($password)){
+if(!empty($email) && !empty($first_name) && !empty($last_name) && !empty($password)){
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-    $sql = $conn->prepare("insert into students (first_name,last_name,username,email,password,picture_path) values(?,?,?,?,?,?)");
-    $sql->bind_param("sssss", $first_name,$last_name,$username,$email,$hashed_password,$picture_path);
+    $sql = $conn->prepare("insert into students (first_name,last_name,email,password,picture_path) values(?,?,?,?,?)");
+    $sql->bind_param("sssss", $first_name,$last_name,$email,$hashed_password,$picture_path);
     $sql->execute();
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     if($sql->get_result()){
