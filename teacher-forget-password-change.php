@@ -5,7 +5,7 @@
     $email=$_POST['email'];
     $reset_token=$_POST['reset_token'];
     $new_password=$_POST['new_password'];
-    $sql = $conn->prepare("select reset_token,exp_date from password_reset_temps where email=?");
+    $sql = $conn->prepare("select reset_token,creation_date from teacher_reset_temps where email=?");
     $sql->bind_param("s",$email);
     $sql->execute();
     $result=$sql->get_result();
@@ -16,10 +16,10 @@
         exit();
     } else {
         $stored_token='';
-        $exp_date='';
+        $creation_date='';
         while( $row=$result->fetch_array(MYSQLI_ASSOC)){
             $stored_token = $row['reset_token'];
-            $exp_date= $row['exp_date'];
+            $creation_date= $row['creation_date'];
         }
         if($stored_token==$reset_token){
             $new_hashed_pass = password_hash($new_password, PASSWORD_BCRYPT);

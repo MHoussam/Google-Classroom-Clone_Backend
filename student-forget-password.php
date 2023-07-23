@@ -17,9 +17,9 @@
         exit();
     }
     $reset_token = bin2hex(openssl_random_pseudo_bytes(16));
-    $exp_date=date('h:i:s', time());
-    $sql = $conn->prepare("INSERT INTO password_reset_temps (email,reset_token,exp_date) VALUES (?,?,?)");
-    $sql->bind_param("sss",$email,$reset_token,$exp_date);
+    $creation_date=date('h:i:s', time());
+    $sql = $conn->prepare("INSERT INTO student_reset_temps (email,reset_token,creation_date) VALUES (?,?,?)");
+    $sql->bind_param("sss",$email,$reset_token,$creation_date);
     $sql->execute();
     if($sql->affected_rows=="0"){
         $response=array("status"=>"0","error"=>"Could not create token");
