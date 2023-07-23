@@ -35,6 +35,10 @@
                 echo json_encode($response);
                 exit();
             }
+        } else{
+            $response=array('status'=>"0","error"=>"wrong token");
+            echo json_encode($response);
+            exit();
         }
     }
 
