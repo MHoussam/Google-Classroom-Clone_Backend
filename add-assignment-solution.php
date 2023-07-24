@@ -18,7 +18,7 @@ if($sql->num_rows=="0"){
     exit();
 }
 
-$sql = $conn->prepare("select class_id from class_students where student_id=? and class_id IN(select class_id from classes where class_id IN (select class_id from assignments where assignment_id=?))");
+$sql = $conn->prepare("select class_id from class_students where student_id=? and class_id IN (select class_id from assignments where assignment_id=?)");
 $sql->bind_param("ii", $student_id,$assignment_id);
 $sql->execute();
 $sql->store_result();
@@ -31,7 +31,7 @@ if($sql->num_rows==0){
     $sql->bind_result($class_id);
     $sql->fetch();
     $sql = $conn->prepare("INSERT INTO assignments_solution (student_id,assignment_id,solution) VALUES (?,?,?)");
-    $sql->bind_param("sss", $student_id,$assignment_id,$solution);
+    $sql->bind_param("iis", $student_id,$assignment_id,$solution);
     $sql->execute();
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     if($sql->affected_rows=="0"){
