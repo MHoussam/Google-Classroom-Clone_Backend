@@ -19,6 +19,18 @@ if($sql->num_rows=="0"){
     echo json_encode($response);
     exit();
 }
+
+$sql = $conn->prepare("select c.class_id from classes c join class_teachers ct on c.class_id=ct.class_id where teacher_id=? and class_name=?");
+$sql->bind_param("is", $teacher_id,$class_name);
+$sql->execute();
+$sql->store_result();
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+if($sql->num_rows!="0"){
+    $response=array('status'=>'0','error'=>'Duplicate class');
+    echo json_encode($response);
+    exit();
+}
+
     $sql = $conn->prepare("insert into classes (class_name,section,subject,room,meet_link) values(?,?,?,?,?)");
     $sql->bind_param("sssss",$class_name,$section,$subject,$room,$meet_link);
     $sql->execute();
