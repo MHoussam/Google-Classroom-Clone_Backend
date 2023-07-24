@@ -13,14 +13,13 @@ $due_date=$_POST['due_date'];
 $due_time=$_POST['due_time'];
 
 
-$sql = $conn->prepare("select class_id from classes where teacher_id=?");
-$sql->bind_param("s",$teacher_id);
+$sql = $conn->prepare("select class_id from class_teachers where teacher_id=? and class_id=?");
+$sql->bind_param("ss",$teacher_id,$class_id);
 $sql->execute();
 $result=$sql->get_result();
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 if($result->num_rows==0){
-    
   $response=array("status"=>"0","error"=>"Teacher does not have any classes");
   echo json_encode($response);
   exit();
@@ -29,8 +28,8 @@ if($result->num_rows==0){
 
     while( $row=$result->fetch_array(MYSQLI_ASSOC)){
         if($row['class_id']==$class_id){
-            $sql = $conn->prepare("INSERT INTO assignments (class_id,title,description,path,due_date,due_time) VALUES (?,?,?,?,?,?)");
-            $sql->bind_param("ssssss", $class_id,$title,$description,$path,$due_date,$due_time);
+            $sql = $conn->prepare("INSERT INTO assignments (class_id,teacher_id,title,description,path,due_date,due_time) VALUES (?,?,?,?,?,?,?)");
+            $sql->bind_param("iisssss", $class_id,$teacher_id,$title,$description,$path,$due_date,$due_time);
             $sql->execute();
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             if($sql->affected_rows=="0"){
