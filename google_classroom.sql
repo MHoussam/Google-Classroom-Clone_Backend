@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2023 at 07:02 PM
+-- Generation Time: Jul 24, 2023 at 12:42 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -30,12 +30,20 @@ SET time_zone = "+00:00";
 CREATE TABLE `assignments` (
   `assignment_id` int(11) NOT NULL,
   `class_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `path` varchar(255) NOT NULL,
   `due_date` date NOT NULL,
   `due_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `assignments`
+--
+
+INSERT INTO `assignments` (`assignment_id`, `class_id`, `teacher_id`, `title`, `description`, `path`, `due_date`, `due_time`) VALUES
+(5, 5, 2, 'JS prep', 'prepare for JS', 'C:/asdsa/asd/', '2023-07-27', '18:35:35');
 
 -- --------------------------------------------------------
 
@@ -50,6 +58,13 @@ CREATE TABLE `assignments_solution` (
   `solution` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `assignments_solution`
+--
+
+INSERT INTO `assignments_solution` (`assignments_solution_id`, `student_id`, `assignment_id`, `solution`) VALUES
+(2, 6, 5, 'ajlndsaljasdasdsa');
+
 -- --------------------------------------------------------
 
 --
@@ -58,7 +73,6 @@ CREATE TABLE `assignments_solution` (
 
 CREATE TABLE `classes` (
   `class_id` int(11) NOT NULL,
-  `teacher_id` int(11) NOT NULL,
   `class_name` varchar(255) NOT NULL,
   `section` varchar(255) NOT NULL,
   `subject` varchar(255) NOT NULL,
@@ -70,10 +84,8 @@ CREATE TABLE `classes` (
 -- Dumping data for table `classes`
 --
 
-INSERT INTO `classes` (`class_id`, `teacher_id`, `class_name`, `section`, `subject`, `room`, `meet_link`) VALUES
-(1, 1, 'SEF', '', '', '', ''),
-(2, 1, 'SEF google', '', '', '', ''),
-(3, 2, 'j-query', '', '', '', '');
+INSERT INTO `classes` (`class_id`, `class_name`, `section`, `subject`, `room`, `meet_link`) VALUES
+(5, 'SEF clone', 'tech', 'JS', '1', 'http://asdsaadsdas');
 
 -- --------------------------------------------------------
 
@@ -92,8 +104,29 @@ CREATE TABLE `class_students` (
 --
 
 INSERT INTO `class_students` (`class_student_id`, `student_id`, `class_id`) VALUES
-(1, 1, 1),
-(2, 1, 2);
+(3, 6, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `class_teachers`
+--
+
+CREATE TABLE `class_teachers` (
+  `class_teacher_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `class_teachers`
+--
+
+INSERT INTO `class_teachers` (`class_teacher_id`, `teacher_id`, `class_id`) VALUES
+(5, 2, 5),
+(2, 4, 5),
+(3, 4, 5),
+(4, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -104,11 +137,20 @@ INSERT INTO `class_students` (`class_student_id`, `student_id`, `class_id`) VALU
 CREATE TABLE `materials` (
   `material_id` int(11) NOT NULL,
   `class_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `path` varchar(255) NOT NULL,
   `date_of_upload` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `materials`
+--
+
+INSERT INTO `materials` (`material_id`, `class_id`, `teacher_id`, `title`, `description`, `path`, `date_of_upload`) VALUES
+(3, 5, 2, 'JS prep', 'prepare for JS', 'C:/asdsa/asd/', '2023-07-24'),
+(5, 5, 2, 'JS prep', 'prepare for JS', 'C:/asdsa/asd/', '2023-07-24');
 
 -- --------------------------------------------------------
 
@@ -130,9 +172,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `email`, `password`, `picture_path`) VALUES
-(1, 'marc', 'marc', 'marc@test.com', '$2y$10$lVAphk7ftjejtXu96lXgi.lvZCOSo8jnO7Uoi5A7Qiqa.gGSOIl4q', 'C://hj/bh'),
-(2, 'chris', 'chris', 'chris@test.com', '$2y$10$TrC66t13H5nohtU5u9C55uOt3.C8dB1P.SlhHiifRbXBUd.khLo02', ''),
-(5, 'adam', 'adam', 'adam@test.com', '$2y$10$ETzJULODQBuxhUb.oQ/kRegslnZULfWkXiDU7q5BBns99sj2BfsVS', '');
+(6, 'adam', 'adam', 'adam@adam.com', '$2y$10$wLQX.blnppoIJiTdlFj75e3rRtl480YFTZKaWTOko4HVwkGse9IuG', '');
 
 -- --------------------------------------------------------
 
@@ -142,10 +182,17 @@ INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `email`, `passw
 
 CREATE TABLE `student_reset_temps` (
   `reset_id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `student_id` int(11) NOT NULL,
   `reset_token` varchar(255) NOT NULL,
   `creation_date` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_reset_temps`
+--
+
+INSERT INTO `student_reset_temps` (`reset_id`, `student_id`, `reset_token`, `creation_date`) VALUES
+(16, 6, 'f55fc3716070a305b0e7e5cee2469e77', '12:33:42');
 
 -- --------------------------------------------------------
 
@@ -167,8 +214,8 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`teacher_id`, `first_name`, `last_name`, `email`, `password`, `picture_path`) VALUES
-(1, 'charbel', 'charbel', 'charbel@charbel.com', 'charbel', 'c:/ads/asasd'),
-(2, 'chris', 'chris', 'chris@test.com', '$2y$10$p.fxuu4xBorBY6uj1gBAxeDve3jDY3hUemFIKB4FilxNjpFSYPVaa', '');
+(2, 'chris', 'chris', 'chris@test.com', '$2y$10$p.fxuu4xBorBY6uj1gBAxeDve3jDY3hUemFIKB4FilxNjpFSYPVaa', ''),
+(4, 'charbel', 'charbel', 'charbel@charbel.com', '$2y$10$QrZlkL9ndyDzKnJ5WIo8tu2EsHDKZOCAYd.IvSsInlmoYxmXkFO4y', '');
 
 -- --------------------------------------------------------
 
@@ -178,7 +225,7 @@ INSERT INTO `teachers` (`teacher_id`, `first_name`, `last_name`, `email`, `passw
 
 CREATE TABLE `teacher_reset_temps` (
   `reset_id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
   `reset_token` varchar(255) NOT NULL,
   `creation_date` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -187,9 +234,8 @@ CREATE TABLE `teacher_reset_temps` (
 -- Dumping data for table `teacher_reset_temps`
 --
 
-INSERT INTO `teacher_reset_temps` (`reset_id`, `email`, `reset_token`, `creation_date`) VALUES
-(6, 'chris@test.com', '474b2749312076c92b1dfee656623792', '06:43:49'),
-(7, 'chris@test.com', 'b518b2d55a58cbfdfb59d0e3db57d32f', '06:51:07');
+INSERT INTO `teacher_reset_temps` (`reset_id`, `teacher_id`, `reset_token`, `creation_date`) VALUES
+(12, 4, 'ee538dcde2e2c92292163c00449e11e0', '12:35:14');
 
 --
 -- Indexes for dumped tables
@@ -200,7 +246,8 @@ INSERT INTO `teacher_reset_temps` (`reset_id`, `email`, `reset_token`, `creation
 --
 ALTER TABLE `assignments`
   ADD PRIMARY KEY (`assignment_id`),
-  ADD KEY `assignments class fk` (`class_id`);
+  ADD KEY `assignments class fk` (`class_id`),
+  ADD KEY `teacher_id` (`teacher_id`);
 
 --
 -- Indexes for table `assignments_solution`
@@ -214,8 +261,7 @@ ALTER TABLE `assignments_solution`
 -- Indexes for table `classes`
 --
 ALTER TABLE `classes`
-  ADD PRIMARY KEY (`class_id`),
-  ADD KEY `teacher_id` (`teacher_id`);
+  ADD PRIMARY KEY (`class_id`);
 
 --
 -- Indexes for table `class_students`
@@ -226,11 +272,20 @@ ALTER TABLE `class_students`
   ADD KEY `class_students class fk` (`class_id`);
 
 --
+-- Indexes for table `class_teachers`
+--
+ALTER TABLE `class_teachers`
+  ADD PRIMARY KEY (`class_teacher_id`),
+  ADD KEY `teacher_id` (`teacher_id`,`class_id`),
+  ADD KEY `class class_id fk` (`class_id`);
+
+--
 -- Indexes for table `materials`
 --
 ALTER TABLE `materials`
   ADD PRIMARY KEY (`material_id`),
-  ADD UNIQUE KEY `class_id` (`class_id`);
+  ADD KEY `teacher_id` (`teacher_id`),
+  ADD KEY `class_id` (`class_id`) USING BTREE;
 
 --
 -- Indexes for table `students`
@@ -242,7 +297,8 @@ ALTER TABLE `students`
 -- Indexes for table `student_reset_temps`
 --
 ALTER TABLE `student_reset_temps`
-  ADD PRIMARY KEY (`reset_id`);
+  ADD PRIMARY KEY (`reset_id`),
+  ADD KEY `student_id` (`student_id`);
 
 --
 -- Indexes for table `teachers`
@@ -254,7 +310,8 @@ ALTER TABLE `teachers`
 -- Indexes for table `teacher_reset_temps`
 --
 ALTER TABLE `teacher_reset_temps`
-  ADD PRIMARY KEY (`reset_id`);
+  ADD PRIMARY KEY (`reset_id`),
+  ADD KEY `teacher_id` (`teacher_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -264,55 +321,61 @@ ALTER TABLE `teacher_reset_temps`
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `assignments_solution`
 --
 ALTER TABLE `assignments_solution`
-  MODIFY `assignments_solution_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `assignments_solution_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `class_students`
 --
 ALTER TABLE `class_students`
-  MODIFY `class_student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `class_student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `class_teachers`
+--
+ALTER TABLE `class_teachers`
+  MODIFY `class_teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `student_reset_temps`
 --
 ALTER TABLE `student_reset_temps`
-  MODIFY `reset_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `reset_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `teacher_reset_temps`
 --
 ALTER TABLE `teacher_reset_temps`
-  MODIFY `reset_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `reset_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
@@ -322,7 +385,8 @@ ALTER TABLE `teacher_reset_temps`
 -- Constraints for table `assignments`
 --
 ALTER TABLE `assignments`
-  ADD CONSTRAINT `assignments class fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`);
+  ADD CONSTRAINT `assignments class fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`),
+  ADD CONSTRAINT `assignments teacher fk` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
 
 --
 -- Constraints for table `assignments_solution`
@@ -332,12 +396,6 @@ ALTER TABLE `assignments_solution`
   ADD CONSTRAINT `solutions student fk` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
 
 --
--- Constraints for table `classes`
---
-ALTER TABLE `classes`
-  ADD CONSTRAINT `classes teacher fk` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
-
---
 -- Constraints for table `class_students`
 --
 ALTER TABLE `class_students`
@@ -345,10 +403,30 @@ ALTER TABLE `class_students`
   ADD CONSTRAINT `class_students student fk` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
 
 --
+-- Constraints for table `class_teachers`
+--
+ALTER TABLE `class_teachers`
+  ADD CONSTRAINT `class class_id fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`),
+  ADD CONSTRAINT `class teacher_id fk` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
+
+--
 -- Constraints for table `materials`
 --
 ALTER TABLE `materials`
-  ADD CONSTRAINT `materials class_id fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`);
+  ADD CONSTRAINT `materials class_id fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`),
+  ADD CONSTRAINT `materials teacher fk` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
+
+--
+-- Constraints for table `student_reset_temps`
+--
+ALTER TABLE `student_reset_temps`
+  ADD CONSTRAINT `reset student_id fk` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
+
+--
+-- Constraints for table `teacher_reset_temps`
+--
+ALTER TABLE `teacher_reset_temps`
+  ADD CONSTRAINT `reset teacher_id fk` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
