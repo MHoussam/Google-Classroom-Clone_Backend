@@ -5,6 +5,16 @@ include('Config\db_connect.php');
 $student_id=$_POST['student_id'];
 $class_name=$_POST['class_name'];
 $class_id="";
+$sql = $conn->prepare("select student_id from students where student_id=?");
+$sql->bind_param("s", $student_id);
+$sql->execute();
+$sql->store_result();
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+if($sql->num_rows=="0"){
+    $response=array('status'=>'0','error'=>'Student does not exist');
+    echo json_encode($response);
+    exit();
+}
 
 $sql = $conn->prepare("select class_id from classes where class_name=$class_name");
 $sql->bind_param("s",$class_name);
