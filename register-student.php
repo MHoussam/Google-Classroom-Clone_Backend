@@ -2,17 +2,19 @@
 
 include('Config\db_connect.php');
 
+
+header("Content-type: application/json; charset=utf-8");
+header('Access-Control-Allow-Origin: http://localhost:5500');
+header('Access-Control-Allow-Methods: POST');
+header("Access-Control-Allow-Headers: Content-Type")
+
 // $_POST = json_decode(file_get_contents('php://input'), true);
 
 $email=$last_name=$first_name=$password=$picture_path="";
 $response['status']="";
 $errors=array('email'=>'','last_name'=>'','first_name'=>'','password'=>'','result'=>'');
 $errors['result']='';
-
-header("Content-type: application/json; charset=utf-8");
-header('Access-Control-Allow-Origin: http://localhost:5500');
-header('Access-Control-Allow-Methods: POST');
-header("Access-Control-Allow-Headers: Content-Type");
+;
 
 
 
