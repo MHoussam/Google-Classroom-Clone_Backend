@@ -20,8 +20,8 @@ if($sql->num_rows=="0"){
     exit();
 }
 
-$sql = $conn->prepare("select c.class_id from classes c join class_teachers ct on c.class_id=ct.class_id where teacher_id=? and class_name=?");
-$sql->bind_param("is", $teacher_id,$class_name);
+$sql = $conn->prepare("select class_id from classes where class_name=?");
+$sql->bind_param("s",$class_name);
 $sql->execute();
 $sql->store_result();
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
