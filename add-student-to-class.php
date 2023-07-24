@@ -16,7 +16,7 @@ if($sql->num_rows=="0"){
     exit();
 }
 
-$sql = $conn->prepare("select class_id from classes where class_name=$class_name");
+$sql = $conn->prepare("select class_id from classes where class_name=?");
 $sql->bind_param("s",$class_name);
 $sql->execute();
 $sql->store_result();
@@ -39,7 +39,7 @@ if($sql->num_rows==0){
         echo json_encode($response);
         exit();
     }else{
-        $response=array('status'=>'1','result'=>'Class added.');
+        $response=array('status'=>'1','result'=>'Class added to student');
         echo json_encode($response);
         exit();
     }
