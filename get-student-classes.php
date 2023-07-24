@@ -8,8 +8,19 @@ header('Access-Control-Allow-Methods: POST');
 header("Access-Control-Allow-Headers: Content-Type");
 
 
-
 $student_id=$_GET['student_id'];
+
+$sql = $conn->prepare("select student_id from students where student_id=?");
+$sql->bind_param("s", $student_id);
+$sql->execute();
+$sql->store_result();
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+if($sql->num_rows=="0"){
+    $response=array('status'=>'0','error'=>'Student does not exist');
+    echo json_encode($response);
+    exit();
+}
+
 $sql = $conn->prepare("select class_id,class_name,section,subject,room,meet_link from classes where class_id IN (select class_id from class_students where student_id=?);");
 $sql->bind_param("s",$student_id);
 $sql->execute();
