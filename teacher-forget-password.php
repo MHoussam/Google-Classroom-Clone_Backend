@@ -5,6 +5,7 @@
     require("PHPMailer\src\PHPMailer.php");
 
     // $_POST = json_decode(file_get_contents('php://input'), true);
+    
     $email=$_POST['email'];
     $teacher_id="";
     $sql = $conn->prepare("select teacher_id from teachers where email=?");

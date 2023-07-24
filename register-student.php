@@ -1,10 +1,12 @@
 <?php
 
 include('Config\db_connect.php');
+
+// $_POST = json_decode(file_get_contents('php://input'), true);
+
 $email=$last_name=$first_name=$password=$picture_path="";
 $response['status']="";
 $errors=array('email'=>'','last_name'=>'','first_name'=>'','password'=>'','result'=>'');
-// $_POST = json_decode(file_get_contents('php://input'), true);
 $errors['result']='';
 
 header("Content-type: application/json; charset=utf-8");

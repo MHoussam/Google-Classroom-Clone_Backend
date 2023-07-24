@@ -2,6 +2,7 @@
     include('Config\db_connect.php');
 
     // $_POST = json_decode(file_get_contents('php://input'), true);
+    
     $email=$_POST['email'];
     $reset_token=$_POST['reset_token'];
     $new_password=$_POST['new_password'];
