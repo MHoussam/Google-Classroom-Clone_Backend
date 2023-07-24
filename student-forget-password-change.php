@@ -5,8 +5,21 @@
     $email=$_POST['email'];
     $reset_token=$_POST['reset_token'];
     $new_password=$_POST['new_password'];
-    $sql = $conn->prepare("select reset_token,creation_date from student_reset_temps where email=?");
+    $student_id="";
+    $sql = $conn->prepare("select student_id from students where email=?");
     $sql->bind_param("s",$email);
+    $sql->execute();
+    $sql->store_result();
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    if($sql->num_rows=="0"){
+        $response=array("status"=>"0","error"=>"Student does not exist");
+        echo json_encode($response);
+        exit();
+    }
+    $sql->bind_result($student_id);
+    $sql->fetch();
+    $sql = $conn->prepare("select reset_token,creation_date from student_reset_temps where student_id=?");
+    $sql->bind_param("s",$student_id);
     $sql->execute();
     $result=$sql->get_result();
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
