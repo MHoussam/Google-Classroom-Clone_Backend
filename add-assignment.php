@@ -14,7 +14,7 @@ $due_time=$_POST['due_time'];
 
 
 $sql = $conn->prepare("select class_id from class_teachers where teacher_id=? and class_id=?");
-$sql->bind_param("ss",$teacher_id,$class_id);
+$sql->bind_param("ii",$teacher_id,$class_id);
 $sql->execute();
 $result=$sql->get_result();
 

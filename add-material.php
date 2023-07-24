@@ -11,8 +11,8 @@ $description=$_POST['description'];
 $path=$_POST['path'];
 
 
-$sql = $conn->prepare("select class_id from classes where teacher_id=?");
-$sql->bind_param("s",$teacher_id);
+$sql = $conn->prepare("select class_id from class_teachers where teacher_id=? and class_id=?");
+$sql->bind_param("ii",$teacher_id,$class_id);
 $sql->execute();
 $result=$sql->get_result();
 
@@ -27,8 +27,9 @@ if($result->num_rows==0){
 
     while( $row=$result->fetch_array(MYSQLI_ASSOC)){
         if($row['class_id']==$class_id){
-            $sql = $conn->prepare("INSERT INTO materials (class_id,title,description,path,date_of_upload) VALUES (?,?,?,?,?)");
-            $sql->bind_param("sssss", $class_id,$title,$description,$path,date("Y-m-d"));
+            $date_of_upload=date("Y-m-d");
+            $sql = $conn->prepare("INSERT INTO materials (class_id,teacher_id,title,description,path,date_of_upload) VALUES (?,?,?,?,?,?)");
+            $sql->bind_param("iissss", $class_id,$teacher_id,$title,$description,$path,$date_of_upload);
             $sql->execute();
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             if($sql->affected_rows=="0"){
