@@ -23,8 +23,8 @@ $sql->store_result();
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 if($sql->num_rows==0){
-  $data=array("status"=>"0","error"=>"Wrong credentials");
-  echo json_encode($data);
+  $response=array("status"=>"0","error"=>"Wrong credentials");
+  echo json_encode($response);
   exit();
 } else{
   $sql->bind_result($hashed_password);
@@ -44,8 +44,8 @@ if($sql->num_rows==0){
         exit();
     }
   } else{
-    $data=array("status"=>"0","error"=>"Wrong credentials");
-    echo json_encode($data);
+    $response=array("status"=>"0","error"=>"Wrong credentials");
+    echo json_encode($response);
     exit();
   }
 }        
