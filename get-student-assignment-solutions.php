@@ -3,12 +3,15 @@
 include('Config\db_connect.php');
 
 header("Content-type: application/json; charset=utf-8");
-header('Access-Control-Allow-Origin: http://localhost:5500');
+header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
 header('Access-Control-Allow-Methods: GET');
 header("Access-Control-Allow-Headers: Content-Type");
 
 
 $student_id=$_GET['student_id'];
+include('student-validation.php');
+
+
 $assignment_id=$_GET['assignment_id'];
 $solution="";
 $sql = $conn->prepare("select assignments_solution_id,solution from assignments_solution where student_id=? and assignment_id=?;");

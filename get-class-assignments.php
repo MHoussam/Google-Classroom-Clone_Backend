@@ -3,7 +3,7 @@
 include('Config\db_connect.php');
 
 header("Content-type: application/json; charset=utf-8");
-header('Access-Control-Allow-Origin: http://localhost:5500');
+header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
 header('Access-Control-Allow-Methods: GET');
 header("Access-Control-Allow-Headers: Content-Type");
 
