@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2023 at 12:06 PM
+-- Generation Time: Jul 25, 2023 at 06:24 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -33,16 +33,11 @@ CREATE TABLE `assignments` (
   `teacher_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
+  `path` varchar(255) NOT NULL,
   `due_date` date NOT NULL,
-  `due_time` time NOT NULL
+  `due_time` time NOT NULL,
+  `date_of_upload` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `assignments`
---
-
-INSERT INTO `assignments` (`assignment_id`, `class_id`, `teacher_id`, `title`, `description`, `due_date`, `due_time`) VALUES
-(5, 5, 2, 'JS prep', 'prepare for JS', '2023-07-27', '18:35:35');
 
 -- --------------------------------------------------------
 
@@ -56,13 +51,6 @@ CREATE TABLE `assignments_solution` (
   `assignment_id` int(11) NOT NULL,
   `solution` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `assignments_solution`
---
-
-INSERT INTO `assignments_solution` (`assignments_solution_id`, `student_id`, `assignment_id`, `solution`) VALUES
-(2, 6, 5, 'ajlndsaljasdasdsa');
 
 -- --------------------------------------------------------
 
@@ -171,7 +159,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `email`, `password`, `picture_path`) VALUES
-(6, 'adam', 'adam', 'adam@adam.com', '$2y$10$wLQX.blnppoIJiTdlFj75e3rRtl480YFTZKaWTOko4HVwkGse9IuG', '');
+(6, 'adam', 'mohamad', 'adam@adam.com', '$2y$10$wLQX.blnppoIJiTdlFj75e3rRtl480YFTZKaWTOko4HVwkGse9IuG', '');
 
 -- --------------------------------------------------------
 
@@ -213,7 +201,7 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`teacher_id`, `first_name`, `last_name`, `email`, `password`, `picture_path`) VALUES
-(2, 'chris', 'chris', 'chris@test.com', '$2y$10$p.fxuu4xBorBY6uj1gBAxeDve3jDY3hUemFIKB4FilxNjpFSYPVaa', ''),
+(2, 'christopher', 'christopher', 'chris@test.com', '$2y$10$p.fxuu4xBorBY6uj1gBAxeDve3jDY3hUemFIKB4FilxNjpFSYPVaa', ''),
 (4, 'charbel', 'charbel', 'charbel@charbel.com', '$2y$10$QrZlkL9ndyDzKnJ5WIo8tu2EsHDKZOCAYd.IvSsInlmoYxmXkFO4y', '');
 
 -- --------------------------------------------------------
