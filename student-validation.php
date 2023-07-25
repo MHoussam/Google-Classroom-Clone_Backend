@@ -1,3 +1,4 @@
+<?
 $student_id=$_GET['student_id'];
 
 $sql = $conn->prepare("select student_id from students where student_id=?");
@@ -10,3 +11,4 @@ if($sql->num_rows=="0"){
     echo json_encode($response);
     exit();
 }
+?>
