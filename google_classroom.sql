@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2023 at 12:42 PM
+-- Generation Time: Jul 25, 2023 at 12:06 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -33,7 +33,6 @@ CREATE TABLE `assignments` (
   `teacher_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `path` varchar(255) NOT NULL,
   `due_date` date NOT NULL,
   `due_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -42,8 +41,8 @@ CREATE TABLE `assignments` (
 -- Dumping data for table `assignments`
 --
 
-INSERT INTO `assignments` (`assignment_id`, `class_id`, `teacher_id`, `title`, `description`, `path`, `due_date`, `due_time`) VALUES
-(5, 5, 2, 'JS prep', 'prepare for JS', 'C:/asdsa/asd/', '2023-07-27', '18:35:35');
+INSERT INTO `assignments` (`assignment_id`, `class_id`, `teacher_id`, `title`, `description`, `due_date`, `due_time`) VALUES
+(5, 5, 2, 'JS prep', 'prepare for JS', '2023-07-27', '18:35:35');
 
 -- --------------------------------------------------------
 
