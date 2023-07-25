@@ -17,7 +17,7 @@ $token_value=$_POST['token_value'];
 include('student-authentication-validation.php');
 $material_id=$title=$description=$path=$date_of_upload="";
 $sql = $conn->prepare("select DISTINCT title,date_of_upload,first_name,last_name from materials m join teachers t on m.teacher_id=t.teacher_id where class_id=?;");
-$sql->bind_param("s",$class_id);
+$sql->bind_param("i",$class_id);
 $sql->execute();
 $result=$sql->get_result();
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -25,7 +25,7 @@ $arrayofrows = array();
 
 if($result->num_rows=="0"){
   $response=array("status"=>"0","error"=>"No materials");
-  echo json_encode($data);
+  echo json_encode($response);
   exit();
 } else{
 

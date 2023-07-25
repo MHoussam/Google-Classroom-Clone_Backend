@@ -18,7 +18,7 @@ include('student-authentication-validation.php');
 
 $assignment_id=$title=$description="";
 $sql = $conn->prepare("select DISTINCT assignment_id,title,description,date_of_upload,first_name,last_name from assignments a join teachers t on a.teacher_id=t.teacher_id where class_id=?;");
-$sql->bind_param("s",$class_id);
+$sql->bind_param("i",$class_id);
 $sql->execute();
 $result=$sql->get_result();
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -26,7 +26,7 @@ $arrayofrows = array();
 
 if($result->num_rows=="0"){
   $response=array("status"=>"0","error"=>"No assignments");
-  echo json_encode($data);
+  echo json_encode($response);
   exit();
 } else{
 
