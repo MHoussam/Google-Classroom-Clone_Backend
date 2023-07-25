@@ -11,7 +11,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 $class_id=$_GET['class_id'];
 $assignment_id=$title=$description="";
-$sql = $conn->prepare("select assignment_id,title,description,due_date,due_time from assignments where class_id=?;");
+$sql = $conn->prepare("select DISTINCT assignment_id,title,description,date_of_upload,first_name,last_name from assignments a join teachers t on a.teacher_id=t.teacher_id where class_id=?;");
 $sql->bind_param("s",$class_id);
 $sql->execute();
 $result=$sql->get_result();

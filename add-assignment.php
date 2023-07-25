@@ -31,8 +31,9 @@ if($result->num_rows==0){
 
     while( $row=$result->fetch_array(MYSQLI_ASSOC)){
         if($row['class_id']==$class_id){
-            $sql = $conn->prepare("INSERT INTO assignments (class_id,teacher_id,title,description,due_date,due_time) VALUES (?,?,?,?,?,?)");
-            $sql->bind_param("iissss", $class_id,$teacher_id,$title,$description,$due_date,$due_time);
+            $date_of_upload=date("Y-m-d");
+            $sql = $conn->prepare("INSERT INTO assignments (class_id,teacher_id,title,description,due_date,due_time,date_of_upload) VALUES (?,?,?,?,?,?,?)");
+            $sql->bind_param("iisssss", $class_id,$teacher_id,$title,$description,$due_date,$due_time,$date_of_upload);
             $sql->execute();
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             if($sql->affected_rows=="0"){
