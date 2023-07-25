@@ -15,7 +15,7 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 $token_value=$_POST['token_value'];
 
 include('student-authentication-validation.php');
-$title=$description=$path=$date_of_upload=$first_name=$last_name"";
+$title=$description=$path=$date_of_upload=$first_name=$last_name="";
 $sql = $conn->prepare("select title,description,path,date_of_upload,first_name,last_name from materials m join teachers t on m.teacher_id=t.teacher_id where material_id=?;");
 $sql->bind_param("i",$material_id);
 $sql->execute();
