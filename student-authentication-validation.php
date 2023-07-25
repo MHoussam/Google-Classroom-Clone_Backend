@@ -1,5 +1,4 @@
 <?php
-include('Config\db_connect.php');
 
 if(isset($_POST['token_value'])){
     $token_value=$_POST['token_value'];
