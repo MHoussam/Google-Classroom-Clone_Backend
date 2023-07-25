@@ -11,7 +11,7 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 
 $token_value=$_POST['token_value'];
 
-include('student-authentication-validation.php');
+include('authentication-validation.php');
 
 if(isset($_GET['class_id'])){
     $class_id=$_GET['class_id'];

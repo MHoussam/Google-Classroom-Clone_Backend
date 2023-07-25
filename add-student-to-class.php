@@ -8,6 +8,10 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 $_POST = json_decode(file_get_contents('php://input'), true);
 
+$token_value=$_POST['token_value'];
+
+include('authentication-validation.php');
+
 $student_id=$_POST['student_id'];
 $class_name=$_POST['class_name'];
 $class_id="";

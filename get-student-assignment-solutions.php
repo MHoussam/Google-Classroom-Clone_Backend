@@ -7,12 +7,16 @@ header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
 header('Access-Control-Allow-Methods: GET');
 header("Access-Control-Allow-Headers: Content-Type");
 
+$_POST = json_decode(file_get_contents('php://input'), true);
+
+$token_value=$_POST['token_value'];
+
+include('authentication-validation.php');
 
 $student_id=$_GET['student_id'];
-
-
 $assignment_id=$_GET['assignment_id'];
 $solution="";
+
 $sql = $conn->prepare("select assignments_solution_id,solution from assignments_solution where student_id=? and assignment_id=?;");
 $sql->bind_param("ii",$student_id,$assignment_id);
 $sql->execute();

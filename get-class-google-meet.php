@@ -12,7 +12,7 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 
 $token_value=$_POST['token_value'];
 
-include('student-authentication-validation.php');
+include('authentication-validation.php');
 $meet_link="";
 $sql = $conn->prepare("select meet_link from classes where class_id=?");
 $sql->bind_param("i",$class_id);

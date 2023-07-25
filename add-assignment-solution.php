@@ -6,7 +6,11 @@ header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
 header('Access-Control-Allow-Methods: POST');
 header("Access-Control-Allow-Headers: Content-Type");
 
-// $_POST = json_decode(file_get_contents('php://input'), true);
+$_POST = json_decode(file_get_contents('php://input'), true);
+
+$token_value=$_POST['token_value'];
+
+include('teacher-authentication-validation.php');
 
 $student_id=$_POST['student_id'];
 $assignment_id=$_POST['assignment_id'];

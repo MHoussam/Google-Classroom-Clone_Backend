@@ -11,6 +11,10 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 $_POST = json_decode(file_get_contents('php://input'), true);
 
+$token_value=$_POST['token_value'];
+
+include('authentication-validation.php');
+
 $email=$_POST['email'];
 
 $password=$_POST['password'];
