@@ -29,6 +29,7 @@ if($sql->num_rows=="0"){
   exit();
 } else{
     $sql->bind_result($assignment_id,$title,$description,$due_date,$due_time,$date_of_upload);
+    $sql->fetch();
     $response=array("status"=>"1","assignment_id"=>$assignment_id,"title"=>$title,"description"=>$description,"due_date"=>$due_date,"due_time"=>$due_time,"date_of_upload"=>$date_of_upload);
     echo json_encode($response);
     exit();
