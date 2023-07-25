@@ -16,8 +16,8 @@ $token_value=$_POST['token_value'];
 
 include('student-authentication-validation.php');
 
-$title=$description=$path=$due_date=$due_time=$date_of_upload="";
-$sql = $conn->prepare("select assignment_id,title,description,due_date,due_time,date_of_upload from assignments where assignment_id=?;");
+$title=$description=$path=$due_date=$due_time=$date_of_upload=$first_name=$last_name="";
+$sql = $conn->prepare("select assignment_id,title,description,due_date,due_time,date_of_upload,first_name,last_name from assignments a join teachers t on a.teacher_id=t.teacher_id where assignment_id=?;");
 $sql->bind_param("i",$assignment_id);
 $sql->execute();
 $sql->store_result();
@@ -28,9 +28,9 @@ if($sql->num_rows=="0"){
   echo json_encode($response);
   exit();
 } else{
-    $sql->bind_result($assignment_id,$title,$description,$due_date,$due_time,$date_of_upload);
+    $sql->bind_result($assignment_id,$title,$description,$due_date,$due_time,$date_of_upload,$first_name,$last_name);
     $sql->fetch();
-    $response=array("status"=>"1","assignment_id"=>$assignment_id,"title"=>$title,"description"=>$description,"due_date"=>$due_date,"due_time"=>$due_time,"date_of_upload"=>$date_of_upload);
+    $response=array("status"=>"1","assignment_id"=>$assignment_id,"title"=>$title,"description"=>$description,"due_date"=>$due_date,"due_time"=>$due_time,"date_of_upload"=>$date_of_upload,"first_name"=>$first_name,"last_name"=>$last_name);
     echo json_encode($response);
     exit();
 }
