@@ -17,7 +17,7 @@ $token_value=$_POST['token_value'];
 include('student-authentication-validation.php');
 
 $title=$description=$path=$due_date=$due_time=$date_of_upload="";
-$sql = $conn->prepare("select assignment_id,title,description,due_date,due_time,date_of_upload where assignment_id=?;");
+$sql = $conn->prepare("select assignment_id,title,description,due_date,due_time,date_of_upload from assignments where assignment_id=?;");
 $sql->bind_param("i",$assignment_id);
 $sql->execute();
 $sql->store_result();
