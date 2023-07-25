@@ -17,7 +17,7 @@ $token_value=$_POST['token_value'];
 include('authentication-validation.php');
 
 $assignment_id=$title=$description="";
-$sql = $conn->prepare("select DISTINCT assignment_id,title,description,date_of_upload,first_name,last_name from assignments a join teachers t on a.teacher_id=t.teacher_id where class_id=?;");
+$sql = $conn->prepare("select DISTINCT assignment_id,title,description,date_of_upload,first_name,last_name from assignments a join teachers t on a.teacher_id=t.teacher_id where class_id=? order by date_of_upload desc;");
 $sql->bind_param("i",$class_id);
 $sql->execute();
 $result=$sql->get_result();
