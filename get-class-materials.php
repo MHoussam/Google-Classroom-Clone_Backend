@@ -10,6 +10,11 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 
 $class_id=$_GET['class_id'];
+$_POST = json_decode(file_get_contents('php://input'), true);
+
+$token_value=$_POST['token_value'];
+
+include('student-authentication-validation.php');
 $material_id=$title=$description=$path=$date_of_upload="";
 $sql = $conn->prepare("select DISTINCT title,date_of_upload,first_name,last_name from materials m join teachers t on m.teacher_id=t.teacher_id where class_id=?;");
 $sql->bind_param("s",$class_id);
