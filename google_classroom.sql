@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2023 at 06:24 PM
+-- Generation Time: Jul 25, 2023 at 08:41 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -159,7 +159,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `email`, `password`, `picture_path`) VALUES
-(6, 'adam', 'mohamad', 'adam@adam.com', '$2y$10$wLQX.blnppoIJiTdlFj75e3rRtl480YFTZKaWTOko4HVwkGse9IuG', '');
+(6, 'adam', 'mohamad', 'adam@adam.com', '$2y$10$wLQX.blnppoIJiTdlFj75e3rRtl480YFTZKaWTOko4HVwkGse9IuG', ''),
+(7, 'marc\n', 'marc', 'marc@marc.com', '$2y$10$QETkq9TRbvM3zSPHIEBHqekDd5itowgPn8pQpppVmDg7LiMtXN/vK', '');
 
 -- --------------------------------------------------------
 
@@ -184,6 +185,28 @@ INSERT INTO `student_reset_temps` (`reset_id`, `student_id`, `reset_token`, `cre
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `student_tokens`
+--
+
+CREATE TABLE `student_tokens` (
+  `token_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `token_value` varchar(255) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_tokens`
+--
+
+INSERT INTO `student_tokens` (`token_id`, `student_id`, `token_value`, `creation_date`) VALUES
+(5, 7, '091f906d58820a1b9ea3dbe2bf7dd810', '2023-07-25 17:01:56'),
+(6, 7, '8e378da5ca4d7a8094d4b5a788129f5c', '2023-07-25 17:02:56'),
+(7, 7, '2f0cef1ebc31e03b2c550736928e6c92', '2023-07-25 17:03:16');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `teachers`
 --
 
@@ -202,7 +225,8 @@ CREATE TABLE `teachers` (
 
 INSERT INTO `teachers` (`teacher_id`, `first_name`, `last_name`, `email`, `password`, `picture_path`) VALUES
 (2, 'christopher', 'christopher', 'chris@test.com', '$2y$10$p.fxuu4xBorBY6uj1gBAxeDve3jDY3hUemFIKB4FilxNjpFSYPVaa', ''),
-(4, 'charbel', 'charbel', 'charbel@charbel.com', '$2y$10$QrZlkL9ndyDzKnJ5WIo8tu2EsHDKZOCAYd.IvSsInlmoYxmXkFO4y', '');
+(4, 'charbel', 'charbel', 'charbel@charbel.com', '$2y$10$QrZlkL9ndyDzKnJ5WIo8tu2EsHDKZOCAYd.IvSsInlmoYxmXkFO4y', ''),
+(5, 'marc\n', 'marc', 'charbel@test.com', '$2y$10$afVVk/KkFyplFlZTm1pUFeIFQorHU.V34SC5XsCeX1TDCoDfuMv8S', '');
 
 -- --------------------------------------------------------
 
@@ -223,6 +247,26 @@ CREATE TABLE `teacher_reset_temps` (
 
 INSERT INTO `teacher_reset_temps` (`reset_id`, `teacher_id`, `reset_token`, `creation_date`) VALUES
 (12, 4, 'ee538dcde2e2c92292163c00449e11e0', '12:35:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teacher_tokens`
+--
+
+CREATE TABLE `teacher_tokens` (
+  `token_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
+  `token_value` varchar(255) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `teacher_tokens`
+--
+
+INSERT INTO `teacher_tokens` (`token_id`, `teacher_id`, `token_value`, `creation_date`) VALUES
+(3, 5, '7f3086e9e15e2c18960293784f9e1e66', '2023-07-25 16:51:05');
 
 --
 -- Indexes for dumped tables
@@ -288,6 +332,13 @@ ALTER TABLE `student_reset_temps`
   ADD KEY `student_id` (`student_id`);
 
 --
+-- Indexes for table `student_tokens`
+--
+ALTER TABLE `student_tokens`
+  ADD PRIMARY KEY (`token_id`),
+  ADD KEY `student_id` (`student_id`);
+
+--
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
@@ -298,6 +349,13 @@ ALTER TABLE `teachers`
 --
 ALTER TABLE `teacher_reset_temps`
   ADD PRIMARY KEY (`reset_id`),
+  ADD KEY `teacher_id` (`teacher_id`);
+
+--
+-- Indexes for table `teacher_tokens`
+--
+ALTER TABLE `teacher_tokens`
+  ADD PRIMARY KEY (`token_id`),
   ADD KEY `teacher_id` (`teacher_id`);
 
 --
@@ -344,7 +402,7 @@ ALTER TABLE `materials`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `student_reset_temps`
@@ -353,16 +411,28 @@ ALTER TABLE `student_reset_temps`
   MODIFY `reset_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT for table `student_tokens`
+--
+ALTER TABLE `student_tokens`
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `teacher_reset_temps`
 --
 ALTER TABLE `teacher_reset_temps`
   MODIFY `reset_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `teacher_tokens`
+--
+ALTER TABLE `teacher_tokens`
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -410,10 +480,22 @@ ALTER TABLE `student_reset_temps`
   ADD CONSTRAINT `reset student_id fk` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
 
 --
+-- Constraints for table `student_tokens`
+--
+ALTER TABLE `student_tokens`
+  ADD CONSTRAINT `token student fk` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
+
+--
 -- Constraints for table `teacher_reset_temps`
 --
 ALTER TABLE `teacher_reset_temps`
   ADD CONSTRAINT `reset teacher_id fk` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
+
+--
+-- Constraints for table `teacher_tokens`
+--
+ALTER TABLE `teacher_tokens`
+  ADD CONSTRAINT `token teacher fk` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
