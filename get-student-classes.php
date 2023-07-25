@@ -10,7 +10,6 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 $student_id=$_GET['student_id'];
 
-include('student-validation.php');
 
 
 $sql = $conn->prepare("select class_id,class_name,section,subject,room,meet_link from classes where class_id IN (select class_id from class_students where student_id=?);");
@@ -22,7 +21,7 @@ $arrayofrows = array();
 
 if($result->num_rows=="0"){
   $response=array("status"=>"0","error"=>"No classes");
-  echo json_encode($data);
+  echo json_encode($response);
   exit();
 } else{
 

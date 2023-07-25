@@ -11,7 +11,6 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 $teacher_id=$_GET['teacher_id'];
 
-include('teacher-validation.php');
 
 $sql = $conn->prepare("select class_id,class_name,section,subject,room,meet_link from classes where class_id IN (select class_id from class_teachers where teacher_id=?);");
 $sql->bind_param("s",$teacher_id);

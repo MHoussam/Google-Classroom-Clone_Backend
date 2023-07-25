@@ -9,7 +9,6 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 
 $student_id=$_GET['student_id'];
-include('student-validation.php');
 
 
 $assignment_id=$_GET['assignment_id'];
