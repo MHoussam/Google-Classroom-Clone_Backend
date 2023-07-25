@@ -60,10 +60,6 @@ if(!isset($_POST['password'])){
 } else{
     $password=$_POST['password'];
 }
-echo $email;
-echo $first_name;
-echo $last_name;
-echo $password;
 
 if(!empty($email) && !empty($first_name) && !empty($last_name) && !empty($password)){
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
