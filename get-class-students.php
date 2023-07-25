@@ -7,6 +7,12 @@ header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
 header('Access-Control-Allow-Methods: GET');
 header("Access-Control-Allow-Headers: Content-Type");
 
+$_POST = json_decode(file_get_contents('php://input'), true);
+
+$token_value=$_POST['token_value'];
+
+include('student-authentication-validation.php');
+
 if(isset($_GET['class_id'])){
     $class_id=$_GET['class_id'];
     $sql = $conn->prepare("select first_name,last_name from students where student_id IN (select student_id from class_students where class_id=?)");
