@@ -8,7 +8,7 @@ header('Access-Control-Allow-Methods: POST');
 header("Access-Control-Allow-Headers: Content-Type");
 
 
-// $_POST = json_decode(file_get_contents('php://input'), true);
+$_POST = json_decode(file_get_contents('php://input'), true);
 
 $email=$password=$new_password="";
 

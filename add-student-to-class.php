@@ -6,7 +6,7 @@ header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
 header('Access-Control-Allow-Methods: POST');
 header("Access-Control-Allow-Headers: Content-Type");
 
-// $_POST = json_decode(file_get_contents('php://input'), true);
+$_POST = json_decode(file_get_contents('php://input'), true);
 
 $student_id=$_POST['student_id'];
 $class_name=$_POST['class_name'];

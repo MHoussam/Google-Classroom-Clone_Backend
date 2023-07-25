@@ -8,7 +8,7 @@ header('Access-Control-Allow-Methods: POST');
 header("Access-Control-Allow-Headers: Content-Type");
 
 
-// $_POST = json_decode(file_get_contents('php://input'), true);
+$_POST = json_decode(file_get_contents('php://input'), true);
 $teacher_id=$first_name=$last_name=$email=$password=$token_value=$creation_date="";
 
 $email=$_POST['email'];
