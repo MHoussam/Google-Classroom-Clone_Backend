@@ -16,7 +16,7 @@ $class_id=$_POST['class_id'];
 $teacher_id=$_POST['teacher_id'];
 $title=$_POST['title'];
 $description=$_POST['description'];
-$path=$_POST['path'];
+// $path=$_POST['path'];
 
 
 $sql = $conn->prepare("select class_id from class_teachers where teacher_id=? and class_id=?");
@@ -36,8 +36,8 @@ if($result->num_rows==0){
     while( $row=$result->fetch_array(MYSQLI_ASSOC)){
         if($row['class_id']==$class_id){
             $creation_date = date("Y-m-d H:i:s");
-            $sql = $conn->prepare("INSERT INTO materials (class_id,teacher_id,title,description,path) VALUES (?,?,?,?,?)");
-            $sql->bind_param("iisss", $class_id,$teacher_id,$title,$description,$path);
+            $sql = $conn->prepare("INSERT INTO materials (class_id,teacher_id,title,description) VALUES (?,?,?,?)");
+            $sql->bind_param("iisss", $class_id,$teacher_id,$title,$description);
             $sql->execute();
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             if($sql->affected_rows=="0"){
