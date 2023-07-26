@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2023 at 08:41 PM
+-- Generation Time: Jul 26, 2023 at 08:47 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -33,7 +33,6 @@ CREATE TABLE `assignments` (
   `teacher_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `path` varchar(255) NOT NULL,
   `due_date` date NOT NULL,
   `due_time` time NOT NULL,
   `date_of_upload` date NOT NULL
@@ -72,7 +71,8 @@ CREATE TABLE `classes` (
 --
 
 INSERT INTO `classes` (`class_id`, `class_name`, `section`, `subject`, `room`, `meet_link`) VALUES
-(5, 'SEF clone', 'tech', 'JS', '1', 'http://asdsaadsdas');
+(5, 'SEF clone', 'tech', 'JS', '1', 'http://asdsaadsdas'),
+(8, 'SEF', 'SEF', 'SEF', 'SEF', 'http:/asdsa/asdasd');
 
 -- --------------------------------------------------------
 
@@ -113,7 +113,8 @@ INSERT INTO `class_teachers` (`class_teacher_id`, `teacher_id`, `class_id`) VALU
 (5, 2, 5),
 (2, 4, 5),
 (3, 4, 5),
-(4, 4, 5);
+(4, 4, 5),
+(6, 5, 8);
 
 -- --------------------------------------------------------
 
@@ -266,7 +267,8 @@ CREATE TABLE `teacher_tokens` (
 --
 
 INSERT INTO `teacher_tokens` (`token_id`, `teacher_id`, `token_value`, `creation_date`) VALUES
-(3, 5, '7f3086e9e15e2c18960293784f9e1e66', '2023-07-25 16:51:05');
+(3, 5, '7f3086e9e15e2c18960293784f9e1e66', '2023-07-25 16:51:05'),
+(4, 5, '9cde243f2d0bf27077261fec077a12d5', '2023-07-26 03:14:19');
 
 --
 -- Indexes for dumped tables
@@ -378,7 +380,7 @@ ALTER TABLE `assignments_solution`
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `class_students`
@@ -390,7 +392,7 @@ ALTER TABLE `class_students`
 -- AUTO_INCREMENT for table `class_teachers`
 --
 ALTER TABLE `class_teachers`
-  MODIFY `class_teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `class_teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `materials`
@@ -432,7 +434,7 @@ ALTER TABLE `teacher_reset_temps`
 -- AUTO_INCREMENT for table `teacher_tokens`
 --
 ALTER TABLE `teacher_tokens`
-  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
