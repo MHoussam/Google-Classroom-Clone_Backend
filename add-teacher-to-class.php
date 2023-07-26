@@ -12,20 +12,23 @@ $token_value=$_POST['token_value'];
 
 include('authentication-validation.php');
 
-$teacher_id=$_POST['teacher_id'];
+$email=$_POST['email'];
 $class_name=$_POST['class_name'];
-$class_id="";
-$sql = $conn->prepare("select teacher_id from teachers where teacher_id=?");
-$sql->bind_param("s", $teacher_id);
+$class_id=$teacher_id="";
+$sql = $conn->prepare("select teacher_id from teachers where email=?");
+$sql->bind_param("s", $email);
 $sql->execute();
 $sql->store_result();
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 if($sql->num_rows=="0"){
     $response=array('status'=>'0','error'=>'teacher does not exist');
     echo json_encode($response);
     exit();
 }
 
+$sql->bind_result($teacher_id);
+$sql->fetch();
 $sql = $conn->prepare("select class_id from classes where class_name=?");
 $sql->bind_param("s",$class_name);
 $sql->execute();
@@ -33,8 +36,8 @@ $sql->store_result();
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 if($sql->num_rows==0){
-  $data=array("status"=>"0","error"=>"Class does not exist");
-  echo json_encode($data);
+  $response=array("status"=>"0","error"=>"Class does not exist");
+  echo json_encode($response);
   exit();
 } else{
     $sql->bind_result($class_id);
