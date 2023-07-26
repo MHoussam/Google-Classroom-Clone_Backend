@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2023 at 08:47 AM
+-- Generation Time: Jul 26, 2023 at 03:41 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -35,7 +35,7 @@ CREATE TABLE `assignments` (
   `description` varchar(255) NOT NULL,
   `due_date` date NOT NULL,
   `due_time` time NOT NULL,
-  `date_of_upload` date NOT NULL
+  `date_of_upload` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -129,7 +129,7 @@ CREATE TABLE `materials` (
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `path` varchar(255) NOT NULL,
-  `date_of_upload` date NOT NULL
+  `date_of_upload` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -137,8 +137,8 @@ CREATE TABLE `materials` (
 --
 
 INSERT INTO `materials` (`material_id`, `class_id`, `teacher_id`, `title`, `description`, `path`, `date_of_upload`) VALUES
-(3, 5, 2, 'JS prep', 'prepare for JS', 'C:/asdsa/asd/', '2023-07-24'),
-(5, 5, 2, 'JS prep', 'prepare for JS', 'C:/asdsa/asd/', '2023-07-24');
+(3, 5, 2, 'JS prep', 'prepare for JS', 'C:/asdsa/asd/', '2023-07-23 21:00:00'),
+(5, 5, 2, 'JS prep', 'prepare for JS', 'C:/asdsa/asd/', '2023-07-23 21:00:00');
 
 -- --------------------------------------------------------
 
@@ -193,7 +193,7 @@ CREATE TABLE `student_tokens` (
   `token_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `token_value` varchar(255) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -259,7 +259,7 @@ CREATE TABLE `teacher_tokens` (
   `token_id` int(11) NOT NULL,
   `teacher_id` int(11) NOT NULL,
   `token_value` varchar(255) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
