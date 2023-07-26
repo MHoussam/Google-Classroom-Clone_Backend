@@ -35,9 +35,9 @@ if($result->num_rows==0){
 
     while( $row=$result->fetch_array(MYSQLI_ASSOC)){
         if($row['class_id']==$class_id){
-            $date_of_upload=date("Y-m-d");
-            $sql = $conn->prepare("INSERT INTO materials (class_id,teacher_id,title,description,path,date_of_upload) VALUES (?,?,?,?,?,?)");
-            $sql->bind_param("iissss", $class_id,$teacher_id,$title,$description,$path,$date_of_upload);
+            $creation_date = date("Y-m-d H:i:s");
+            $sql = $conn->prepare("INSERT INTO materials (class_id,teacher_id,title,description,path) VALUES (?,?,?,?,?)");
+            $sql->bind_param("iisss", $class_id,$teacher_id,$title,$description,$path);
             $sql->execute();
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             if($sql->affected_rows=="0"){

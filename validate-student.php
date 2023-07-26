@@ -28,10 +28,9 @@ if($sql->num_rows()==0){
   $sql->bind_result($student_id,$first_name,$last_name,$hashed_password);
   $sql->fetch();
   if(password_verify($password,$hashed_password)){
-    $creation_date = date("Y-m-d H:i:s");
     $token_value = bin2hex(openssl_random_pseudo_bytes(16));
-    $sql = $conn->prepare("INSERT INTO student_tokens (student_id,token_value,creation_date) VALUES (?,?,?)");
-    $sql->bind_param("iss",$student_id,$token_value,$creation_date);
+    $sql = $conn->prepare("INSERT INTO student_tokens (student_id,token_value) VALUES (?,?)");
+    $sql->bind_param("is",$student_id,$token_value);
     $sql->execute();
     if($sql->affected_rows=="0"){
         $response=array("status"=>"0","error"=>"Could not create token");
