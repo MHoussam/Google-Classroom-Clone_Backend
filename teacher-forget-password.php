@@ -49,10 +49,11 @@
     $mail->Subject = 'Password Recovery';
     $mail->Body = $reset_token;
     if(!$mail->send()){
-        echo 'Message could not be sent.';
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
+        $response=array("status"=>"0","error"=> $mail->ErrorInfo);
+        echo json_encode($response);
     }else{
-        echo 'Message has been sent';
+        $response=array("status"=>"1","result"=>"Message has been sent");
+        echo json_encode($response);;
     }
 
 ?> 
