@@ -18,7 +18,7 @@ if(isset($_POST['token_value'])){
             $response=array("status"=>"0","error"=>"Authentication required");
             echo json_encode($response);
             exit();
-        }
+        }   
     }
 } else {
     $response=array("status"=>"0","error"=>"Authentication required");

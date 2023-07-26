@@ -22,7 +22,7 @@ $result=$sql->get_result();
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 if($result->num_rows=="0"){
   $response=array("status"=>"0","error"=>"No classes");
-  echo json_encode($data);
+  echo json_encode($response);
   exit();
 } else{
   $arrayofrows = array();
