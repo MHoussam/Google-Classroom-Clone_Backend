@@ -13,8 +13,8 @@ $token_value=$_POST['token_value'];
 include('authentication-validation.php');
 
 $email=$_POST['email'];
-$class_name=$_POST['class_name'];
-$class_id=$student_id="";
+$class_id=$_POST['class_id'];
+$student_id="";
 $sql = $conn->prepare("select student_id from students where email=?");
 $sql->bind_param("s", $email);
 $sql->execute();
@@ -27,8 +27,8 @@ if($sql->num_rows=="0"){
 }
 $sql->bind_result($student_id);
 $sql->fetch();
-$sql = $conn->prepare("select class_id from classes where class_name=?");
-$sql->bind_param("s",$class_name);
+$sql = $conn->prepare("select class_id from classes where class_id=?");
+$sql->bind_param("i",$class_id);
 $sql->execute();
 $sql->store_result();
 
@@ -39,8 +39,6 @@ if($sql->num_rows==0){
   echo json_encode($response);
   exit();
 } else{
-    $sql->bind_result($class_id);
-    $sql->fetch();
     $sql = $conn->prepare("INSERT INTO class_students (student_id,class_id) VALUES (?,?)");
     $sql->bind_param("ss", $student_id,$class_id);
     $sql->execute();
