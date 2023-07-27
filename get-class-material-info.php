@@ -7,10 +7,10 @@ header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
 header('Access-Control-Allow-Methods: GET,POST');
 header("Access-Control-Allow-Headers: Content-Type");
 
-
-
-$material_id=$_GET['material_id'];
 $_POST = json_decode(file_get_contents('php://input'), true);
+
+
+$material_id=$_POST['material_id'];
 
 $token_value=$_POST['token_value'];
 

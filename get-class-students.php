@@ -13,8 +13,8 @@ $token_value=$_POST['token_value'];
 
 include('authentication-validation.php');
 
-if(isset($_GET['class_id'])){
-    $class_id=$_GET['class_id'];
+if(isset($_POST['class_id'])){
+    $class_id=$_POST['class_id'];
     $sql = $conn->prepare("select first_name,last_name from students where student_id IN (select student_id from class_students where class_id=?)");
     $sql->bind_param("i",$class_id);
     $sql->execute();
